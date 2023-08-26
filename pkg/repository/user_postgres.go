@@ -1,12 +1,28 @@
 package repository
 
-//func (r *AuthPostgres) GetUser(username, password string) (project.User, error) {
-//	var user project.User
-//	query := "SELECT id FROM user_all WHERE username=$1 AND password_hash=$2"
-//	err := r.db.Get(&user, query, username, password)
-//	if err != nil {
-//		logrus.Errorf("error in auth_postres getUser, err: %s", err.Error())
-//	}
-//
-//	return user, nil
-//}
+import (
+	"fmt"
+	"github.com/jmoiron/sqlx"
+	"internship_avito/pkg/model"
+)
+
+type AuthPostgres struct {
+	db *sqlx.DB
+}
+
+func NewAuthPostgres(db *sqlx.DB) *AuthPostgres {
+	return &AuthPostgres{db: db}
+}
+
+func (r *AuthPostgres) CreateUser(user model.User) (int, error) {
+	var id int
+
+	query := fmt.Sprintf("INSERT INTO %s VALUES RETURNING Id", userTable)
+	row := r.db.QueryRow(query)
+
+	if err := row.Scan(&id); err != nil {
+		return 0, err
+	}
+
+	return id, nil
+}

@@ -1,9 +1,12 @@
 package services
 
-import "internship_avito/pkg/repository"
+import (
+	"internship_avito/pkg/model"
+	"internship_avito/pkg/repository"
+)
 
 type Logics interface {
-	//CreateUser
+	CreateUser(user model.User) (int, error)
 }
 
 type Service struct {
@@ -11,5 +14,7 @@ type Service struct {
 }
 
 func NewService(repos *repository.Repository) *Service {
-	return &Service{}
+	return &Service{
+		Logics: NewAuthService(repos.Logics),
+	}
 }
