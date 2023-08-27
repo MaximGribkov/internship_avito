@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"fmt"
 	"github.com/jmoiron/sqlx"
 	"internship_avito/pkg/model"
 )
@@ -17,7 +16,7 @@ func NewAuthPostgres(db *sqlx.DB) *AuthPostgres {
 func (r *AuthPostgres) CreateUser(user model.User) (int, error) {
 	var id int
 
-	query := fmt.Sprintf("INSERT INTO %s VALUES RETURNING Id", userTable)
+	query := "INSERT INTO users DEFAULT VALUES RETURNING user_id"
 	row := r.db.QueryRow(query)
 
 	if err := row.Scan(&id); err != nil {

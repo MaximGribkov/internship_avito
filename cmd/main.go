@@ -11,16 +11,17 @@ import (
 )
 
 func main() {
+	logrus.SetFormatter(new(logrus.JSONFormatter))
 	if err := initConfig(); err != nil {
 		logrus.Fatalf("error init config, err: %s", err.Error())
 	}
 
 	db, err := repository.NewPostgresDB(repository.Config{
 		Host:     "localhost",
-		Port:     "5432",
-		Username: "1234",
-		Password: "1234",
-		DBName:   "1234",
+		Port:     "5433",
+		Username: "avito",
+		Password: "avito",
+		DBName:   "avito",
 		SSLmode:  "disable",
 	})
 	if err != nil {

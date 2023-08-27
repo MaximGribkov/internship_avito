@@ -29,7 +29,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	{
 		segments.POST("/create", h.createSegments)
 		segments.DELETE("/delete", h.deleteSegments)
-		segments.GET("/get-slug", h.getSlugUser)
+		segments.GET("/get-slug", h.getSegmentsUser)
 	}
 
 	return router

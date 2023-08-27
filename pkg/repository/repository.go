@@ -5,16 +5,23 @@ import (
 	"internship_avito/pkg/model"
 )
 
-type Logics interface {
+type LogicsUser interface {
 	CreateUser(user model.User) (int, error)
 }
 
+type LogicSegments interface {
+	CreateSegments(segments model.Segments) (int, error)
+	DeleteSegments(segments model.Segments) (string, error)
+}
+
 type Repository struct {
-	Logics
+	LogicsUser
+	LogicSegments
 }
 
 func NewRepository(db *sqlx.DB) *Repository {
 	return &Repository{
-		Logics: NewAuthPostgres(db),
+		LogicsUser:    NewAuthPostgres(db),
+		LogicSegments: NewSegmentsPostgres(db),
 	}
 }

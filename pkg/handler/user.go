@@ -13,7 +13,7 @@ func (h *Handler) createUser(c *gin.Context) {
 		return
 	}
 
-	id, err := h.services.Logics.CreateUser(user)
+	id, err := h.services.LogicsUser.CreateUser(user)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 	}

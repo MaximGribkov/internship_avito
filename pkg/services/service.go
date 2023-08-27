@@ -5,16 +5,23 @@ import (
 	"internship_avito/pkg/repository"
 )
 
-type Logics interface {
+type LogicsUser interface {
 	CreateUser(user model.User) (int, error)
 }
 
+type LogicSegment interface {
+	CreateSegments(segments model.Segments) (int, error)
+	DeleteSegments(segments model.Segments) (string, error)
+}
+
 type Service struct {
-	Logics
+	LogicsUser
+	LogicSegment
 }
 
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
-		Logics: NewAuthService(repos.Logics),
+		LogicsUser:   NewAuthService(repos.LogicsUser),
+		LogicSegment: NewSegmentService(repos.LogicSegments),
 	}
 }

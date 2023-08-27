@@ -9,7 +9,7 @@ services:
     depends_on:
       - db
     environment:
-      - DB_PASSWORD=1234
+      - DB_PASSWORD=avito
 
   db:
     restart: always
@@ -17,8 +17,8 @@ services:
     volumes:
       - ./.database/postgres/data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=1234
-      - POSTGRES_USER=1234
-      - POSTGRES_DB=1234
+      - POSTGRES_PASSWORD=avito
+      - POSTGRES_USER=avito
+      - POSTGRES_DB=avito
     ports:
-      - "5432:5432"
+      - "5433:5432"
