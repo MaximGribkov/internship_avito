@@ -7,11 +7,15 @@ import (
 
 type LogicsUser interface {
 	CreateUser(user model.User) (int, error)
+	AddUserToSegment(user model.UserSegments) (string, error)
+	DeleteUserFromSegment(user model.UserSegments) (string, error)
+	GetUserSegment(user model.User) ([]string, error)
 }
 
 type LogicSegment interface {
-	CreateSegments(segments model.Segments) (int, error)
+	CreateSegments(segments model.Segments) (string, error)
 	DeleteSegments(segments model.Segments) (string, error)
+	UserCountInSegment(segments model.Segments) (int, error)
 }
 
 type Service struct {

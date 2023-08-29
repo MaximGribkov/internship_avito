@@ -5,12 +5,6 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-const (
-	userTable       = "users"
-	segmentsTable   = "segments"
-	manyToManyTable = "segments_user"
-)
-
 type Config struct {
 	Host     string
 	Port     string

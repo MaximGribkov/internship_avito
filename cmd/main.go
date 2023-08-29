@@ -17,11 +17,19 @@ func main() {
 	}
 
 	db, err := repository.NewPostgresDB(repository.Config{
+		//Host:     "localhost",
+		//Port:     "5433",
+		//Username: "avito",
+		//Password: "avito",
+		//DBName:   "avito",
+		//SSLmode:  "disable",
+
+		// Локальная версия бд
 		Host:     "localhost",
 		Port:     "5433",
-		Username: "avito",
-		Password: "avito",
-		DBName:   "avito",
+		Username: "postgres",
+		Password: "1234",
+		DBName:   "postgres",
 		SSLmode:  "disable",
 	})
 	if err != nil {

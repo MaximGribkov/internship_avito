@@ -6,9 +6,10 @@ import (
 )
 
 type Errors struct {
-	Massage string `json:"massege"`
+	Massage string `json:"massage"`
 }
 
+// Обработчик ошибок
 func newErrorResponse(c *gin.Context, statusCode int, massage string) {
 	logrus.Error(massage)
 	c.AbortWithStatusJSON(statusCode, Errors{Massage: massage})

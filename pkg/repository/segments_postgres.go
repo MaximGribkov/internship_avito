@@ -2,7 +2,9 @@ package repository
 
 import (
 	"github.com/jmoiron/sqlx"
+	"github.com/sirupsen/logrus"
 	"internship_avito/pkg/model"
+	"time"
 )
 
 type SegmentsPostgres struct {
@@ -13,12 +15,12 @@ func NewSegmentsPostgres(db *sqlx.DB) *SegmentsPostgres {
 	return &SegmentsPostgres{db: db}
 }
 
-func (s *SegmentsPostgres) CreateSegments(segments model.Segments) (int, error) {
-	var input int
-	query := "INSERT INTO segments (segments_name) VALUES ($1) RETURNING segments_id"
-	row := s.db.QueryRow(query, segments.SegmentsName)
+func (s *SegmentsPostgres) CreateSegments(segments model.Segments) (string, error) {
+	var input string
+	query := "INSERT INTO segments (segments_name, time_create) VALUES ($1, $2) RETURNING segments_name"
+	row := s.db.QueryRow(query, segments.SegmentsName, time.Now())
 	if err := row.Scan(&input); err != nil {
-		return 0, err
+		return "", err
 	}
 	return input, nil
 }
@@ -26,17 +28,26 @@ func (s *SegmentsPostgres) CreateSegments(segments model.Segments) (int, error) 
 func (s *SegmentsPostgres) DeleteSegments(segments model.Segments) (string, error) {
 	var input string
 
-	//_, err := s.db.Exec("DELETE FROM segments WHERE segments_name=$1", segments)
-	//if err != nil {
-	//	return "bad", err
-	//}
-	//fmt.Println(segments)
-	//return "ok", nil
-
-	query := "DELETE FROM segments WHERE segments_name=$1"
+	query := "DELETE FROM segments WHERE segments_name=$1 RETURNING segments_name"
 	row := s.db.QueryRow(query, segments.SegmentsName)
 	if err := row.Scan(&input); err != nil {
-		return "successfully", nil
+		return "wrong name segment", nil
 	}
-	return "wrong name segment", nil
+	return "successes", nil
+}
+
+func (s *SegmentsPostgres) UserCountInSegment(segments model.Segments) (int, error) {
+	count := 0
+
+	query := "SELECT user_id FROM segments_user WHERE segments_name=$1"
+	row, err := s.db.Queryx(query, segments.SegmentsName)
+	if err != nil {
+		logrus.Errorf("error in r.db.Queryx, err: %s", err)
+	}
+
+	for row.Next() {
+		count++
+	}
+
+	return count, nil
 }

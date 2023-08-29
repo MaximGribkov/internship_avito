@@ -1,10 +1,17 @@
 port: "8000"
 
 db:
-  host:     "localhost"
-  port:     "5433"
+#  host:     "localhost"
+#  port:     "5433"
+#  username: "avito"
+#  database:   "avito"
+#  sslmode: "disable"
+
+#  локальная верси бд
+  host: "localhost"
+  port: "5433"
   username: "avito"
-  database:   "avito"
+  database: "avito"
   sslmode: "disable"
 
 

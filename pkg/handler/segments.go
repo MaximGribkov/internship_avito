@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+// Метод создания сегмента
 func (h *Handler) createSegments(c *gin.Context) {
 	var input model.Segments
 
@@ -13,16 +14,17 @@ func (h *Handler) createSegments(c *gin.Context) {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 	}
 
-	id, err := h.services.LogicSegment.CreateSegments(input)
+	answer, err := h.services.LogicSegment.CreateSegments(input)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"id": id,
+		"segment_name": answer,
 	})
 }
 
+// Метод удаления сегмента
 func (h *Handler) deleteSegments(c *gin.Context) {
 	var input model.Segments
 
@@ -40,7 +42,20 @@ func (h *Handler) deleteSegments(c *gin.Context) {
 	})
 }
 
-// Получение списка активных сегментов пользователя
-func (h *Handler) getSegmentsUser(c *gin.Context) {
+// Метод получения количества пользователей для одного сегмента
+func (h *Handler) userCountInSegment(c *gin.Context) {
+	var input model.Segments
 
+	if err := c.BindJSON(&input); err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+	}
+
+	answer, err := h.services.LogicSegment.UserCountInSegment(input)
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"count": answer,
+	})
 }

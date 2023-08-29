@@ -5,6 +5,6 @@ type User struct {
 }
 
 type UserSegments struct {
-	Id         int `json:"id"`
-	SegmentsId int `json:"segments_id"`
+	Id           int      `json:"id"`
+	SegmentsName []string `json:"segments_name"`
 }

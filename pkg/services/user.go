@@ -16,3 +16,15 @@ func NewAuthService(repo repository.LogicsUser) *AuthService {
 func (s *AuthService) CreateUser(user model.User) (int, error) {
 	return s.repo.CreateUser(user)
 }
+
+func (s *AuthService) AddUserToSegment(user model.UserSegments) (string, error) {
+	return s.repo.AddUserToSegments(user)
+}
+
+func (s *AuthService) DeleteUserFromSegment(user model.UserSegments) (string, error) {
+	return s.repo.DeleteUserFromSegments(user)
+}
+
+func (s *AuthService) GetUserSegment(user model.User) ([]string, error) {
+	return s.repo.GetUserSegments(user)
+}
