@@ -6,7 +6,18 @@ import (
 	"net/http"
 )
 
-// Метод создания пользователя
+// @Summary createUser
+// @Description Метод создания пользователя
+// @Tags         user
+// @Accept       json
+// @Produce      json
+// @Param        input body model.User true "user"
+// @Success      200  {string}  ok
+// @Failure      400 {object}  Errors
+// @Failure      404 {object}  Errors
+// @Failure      500  {object}  Errors
+// @Failure      default  {object}  Errors
+// @Router       /user/create [post]
 func (h *Handler) createUser(c *gin.Context) {
 	var input model.User
 	if err := c.BindJSON(&input); err != nil {
@@ -24,7 +35,18 @@ func (h *Handler) createUser(c *gin.Context) {
 	})
 }
 
-// Метод добавления сегмента пользователю
+// @Summary addUserToSegment
+// @Description Метод добавления сегмента пользователю
+// @Tags         user
+// @Accept       json
+// @Produce      json
+// @Param        input body model.User true "user id and list segment"
+// @Success      200  {string}  ok
+// @Failure      400 {object}  Errors
+// @Failure      404 {object}  Errors
+// @Failure      500  {object}  Errors
+// @Failure      default  {object}  Errors
+// @Router       /user/add-segment [post]
 func (h *Handler) addUserToSegment(c *gin.Context) {
 	var input model.UserSegments
 
@@ -45,7 +67,18 @@ func (h *Handler) addUserToSegment(c *gin.Context) {
 	})
 }
 
-// Метод удаление сегментов у пользователя
+// @Summary deleteUserFromSegment
+// @Description Метод удаление сегментов у пользователя
+// @Tags         user
+// @Accept       json
+// @Produce      json
+// @Param        input body model.User true "user id and list segment"
+// @Success      200  {string}  ok
+// @Failure      400 {object}  Errors
+// @Failure      404 {object}  Errors
+// @Failure      500  {object}  Errors
+// @Failure      default  {object}  Errors
+// @Router       /delete-segment [delete]
 func (h *Handler) deleteUserFromSegment(c *gin.Context) {
 	var input model.UserSegments
 
@@ -66,7 +99,18 @@ func (h *Handler) deleteUserFromSegment(c *gin.Context) {
 	})
 }
 
-// Метод получения списка сегментов пользователя
+// @Summary getUserSegment
+// @Description Метод получения списка сегментов пользователя
+// @Tags         user
+// @Accept       json
+// @Produce      json
+// @Param        id path int true "user id"
+// @Success      200  {string}  model.User
+// @Failure      400 {object}  Errors
+// @Failure      404 {object}  Errors
+// @Failure      500  {object}  Errors
+// @Failure      default  {object}  Errors
+// @Router       /get-user-segment [get]
 func (h *Handler) getUserSegment(c *gin.Context) {
 	var input model.User
 

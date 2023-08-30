@@ -3,6 +3,10 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"internship_avito/pkg/services"
+
+	"github.com/swaggo/files"
+	"github.com/swaggo/gin-swagger"
+	_ "internship_avito/docs"
 )
 
 type Handler struct {
@@ -30,6 +34,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		segments.POST("/create", h.createSegments)
 		segments.DELETE("/delete", h.deleteSegments)
 	}
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	return router
 }

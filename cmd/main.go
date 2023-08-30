@@ -4,12 +4,20 @@ import (
 	_ "github.com/lib/pq"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
+	_ "github.com/swaggo/files"
+	_ "github.com/swaggo/gin-swagger"
 	"internship_avito"
 	"internship_avito/pkg/handler"
 	"internship_avito/pkg/repository"
 	"internship_avito/pkg/services"
 )
 
+// @Title Internship-avito
+// @Version 1.0
+// @Description API Service for Internship-avito, user and segment
+
+// @localhost:8000
+// @BasePath
 func main() {
 	logrus.SetFormatter(new(logrus.JSONFormatter))
 	if err := initConfig(); err != nil {
