@@ -1,6 +1,6 @@
 package model
 
 type Segments struct {
-	Id           int    `json:"id"`
+	Percent      int    `json:"percent"`
 	SegmentsName string `json:"segments_name" binding:"required"`
 }

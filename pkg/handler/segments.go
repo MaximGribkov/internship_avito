@@ -11,7 +11,7 @@ import (
 // @Tags         segment
 // @Accept       json
 // @Produce      json
-// @Param        input body model.Segments true "segment name"
+// @Param        input body model.Segments true "segment name and(or) percent user"
 // @Success      200  {string}  ok
 // @Failure      400 {object}  Errors
 // @Failure      404 {object}  Errors
