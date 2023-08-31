@@ -8,10 +8,10 @@ db:
 #  sslmode: "disable"
 
 #  локальная верси бд
-  host: "localhost"
-  port: "5433"
-  username: "avito"
-  database: "avito"
+  host: "db"
+  port: "5432"
+  username: "postgres"
+  database: "postgres"
   sslmode: "disable"
 
 
