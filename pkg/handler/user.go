@@ -40,7 +40,7 @@ func (h *Handler) createUser(c *gin.Context) {
 // @Tags         user
 // @Accept       json
 // @Produce      json
-// @Param        input body model.User true "user id and list segment"
+// @Param        input body model.User true "enter the user id, the name of the segment and, if necessary, the time in hours of adding the user to the segment"
 // @Success      200  {string}  ok
 // @Failure      400 {object}  Errors
 // @Failure      404 {object}  Errors
@@ -61,9 +61,10 @@ func (h *Handler) addUserToSegment(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"user_id":      input.Id,
-		"segment_name": input.SegmentsName,
-		"result":       answer,
+		"user_id":       input.Id,
+		"segment_name":  input.SegmentsName,
+		"result":        answer,
+		"time_in_hours": input.TTlTime,
 	})
 }
 

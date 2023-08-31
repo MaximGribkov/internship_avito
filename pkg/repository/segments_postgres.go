@@ -16,6 +16,7 @@ func NewSegmentsPostgres(db *sqlx.DB) *SegmentsPostgres {
 	return &SegmentsPostgres{db: db}
 }
 
+// CreateSegments Функция создания сегмента и автоматическое добавление определенному проценту пользователей
 func (s *SegmentsPostgres) CreateSegments(segments model.Segments) (string, error) {
 	var inputCreate string
 	var count int
@@ -28,6 +29,7 @@ func (s *SegmentsPostgres) CreateSegments(segments model.Segments) (string, erro
 		return "", err
 	}
 
+	// Количество пользователей
 	err := s.db.Get(&count, "SELECT COUNT(*) FROM users")
 	if err != nil {
 		logrus.Errorf("error in func CreateSegments in s.db.Get(), err: %s", err)
@@ -48,6 +50,7 @@ func (s *SegmentsPostgres) CreateSegments(segments model.Segments) (string, erro
 		logrus.Errorf("error in func CreateSegments in rowAddUser, err: %s", err)
 		return "", err
 	}
+	// если не указн процент пользователей, то просто создастся сегмент
 	if percentUser <= 0 { // для случая если хотим просто создать сегмент. запись в бд не будет
 		return answer, nil
 	}
@@ -75,6 +78,7 @@ func (s *SegmentsPostgres) CreateSegments(segments model.Segments) (string, erro
 	return answer, nil
 }
 
+// DeleteSegments Функция удаления сегмента
 func (s *SegmentsPostgres) DeleteSegments(segments model.Segments) (string, error) {
 	var input string
 
@@ -86,6 +90,7 @@ func (s *SegmentsPostgres) DeleteSegments(segments model.Segments) (string, erro
 	return "successes", nil
 }
 
+// UserCountInSegment Функция подсчета количества пользователей в сегменте
 func (s *SegmentsPostgres) UserCountInSegment(segments model.Segments) (int, error) {
 	count := 0
 
